@@ -1,0 +1,84 @@
+$('#slider1, #slider2, #slider3').owlCarousel({
+    loop: true,
+    margin: 20,
+    responsiveClass: true,
+    responsive: {
+        0: {
+            items: 1,
+            nav: false,
+            autoplay: true,
+        },
+        600: {
+            items: 3,
+            nav: true,
+            autoplay: true,
+        },
+        1000: {
+            items: 5,
+            nav: true,
+            loop: true,
+            autoplay: true,
+        }
+    }
+})
+
+$(' .plus-book').click(function () {
+    var id = $(this).attr("pid").toString();
+    var eml = this.parentNode.children[2]
+    //console.log(id)
+    $.ajax({
+        type:"GET",
+        url:"/plusbook",
+        data:{
+            mov_id:id
+        },
+        success: function(data){
+            eml.innerText = data.quantity
+            
+            document.getElementById("amount").innerText = data.amount
+            document.getElementById("totalamount").innerText = data.totalamount
+        }
+
+    })
+})
+
+$(' .minus-book').click(function () {
+    var id = $(this).attr("pid").toString();
+    var eml = this.parentNode.children[2]
+    //console.log(id)
+    $.ajax({
+        type:"GET",
+        url:"/minusbook",
+        data:{
+            mov_id:id
+        },
+        success: function(data){
+            eml.innerText = data.quantity
+            
+            document.getElementById("amount").innerText = data.amount
+            document.getElementById("totalamount").innerText = data.totalamount
+        }
+
+    })
+})
+
+$(' .remove-book').click(function () {
+    var id = $(this).attr("pid").toString();
+    var eml = this
+    console.log(id)
+    $.ajax({
+        type:"GET",
+        url:"/removebook",
+        data:{
+            mov_id:id
+        },
+        success: function(data){
+            console.log("delete")
+            document.getElementById("amount").innerText = data.amount
+            document.getElementById("totalamount").innerText = data.totalamount
+            data.totalamount
+            eml.parentNode.parentNode.parentNode.parentNode.remove()
+        }
+
+    })
+})

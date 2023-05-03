@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Movie{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-3">
+   <div class="list-group">
+     <a href="{% url 'movie' %}" class="list-group-item list-group-item-action" aria-current="true">All Movies</a>
+     <a href="{% url 'moviedata' 'Bollywood'  %}" class="list-group-item list-group-item-action" aria-current="true">Bollywood</a>
+     <a href="{% url 'moviedata' 'Hollywood'  %}" class="list-group-item list-group-item-action">Hollywood</a>
+     <a href="{% url 'moviedata' 'Marathi'  %}" class="list-group-item list-group-item-action">Marathi</a>
+     <a href="{% url 'moviedata' 'South'  %}" class="list-group-item list-group-item-action">South</a>
+   </div>
+  </div>
+  <div class="col-sm-8">
+   <div class="row">
+    {% for movie in mobiles %}
+     <div class="col-sm-4 text-center mb-4">
+      <a href="{% url 'movie-detail' movie.id %}" class="btn">
+       <div class="item">
+        <img src="{{movie.movie_image.url}}" alt="" height="400" class="">
+        <div class="fw-bold">{{movie.title}}</div>
+        <div class="fw-bold">Rs. {{movie.total_price}} <small class="fw-light text-decoration-line-through">Rs. {{movie.ticket_price}}</small></div>
+       </div>
+      </a>
+     </div>
+    {% endfor %}
+   </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
